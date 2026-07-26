@@ -194,7 +194,8 @@ ul{margin:0;padding:0;list-style:none}
 .hero-stage{position:relative;display:grid;place-items:center;min-height:520px;perspective:1200px}
 .phone-ring{position:absolute;width:430px;height:430px;border:1.5px dashed rgba(255,255,255,.14);border-radius:50%;animation:spin 46s linear infinite}
 .phone-ring.r2{width:330px;height:330px;border-color:rgba(149,14,207,.28);animation:spin 30s linear infinite reverse}
-.phone-glow{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(149,14,207,.34),transparent 65%);filter:blur(8px)}
+/* Убран filter: blur(8px) для экономии ресурсов GPU */
+.phone-glow{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(149,14,207,.34),transparent 65%)}
 .phone{position:relative;width:286px;aspect-ratio:9/19.2;border-radius:42px;background:linear-gradient(160deg,#16243d,#0a1322);border:1px solid rgba(255,255,255,.14);padding:11px;box-shadow:0 50px 90px -30px rgba(0,0,0,.8),inset 0 0 0 2px rgba(255,255,255,.04);transition:transform .25s var(--ease);will-change:transform}
 .phone-screen{position:relative;width:100%;height:100%;border-radius:32px;background:#070e1b;overflow:hidden;padding:18px 16px;display:flex;flex-direction:column}
 .phone-notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:96px;height:24px;background:#070e1b;border-radius:0 0 14px 14px;z-index:5}
@@ -217,7 +218,8 @@ ul{margin:0;padding:0;list-style:none}
 .diag-item small{margin-left:auto;font-family:var(--font-mono);font-size:.66rem;color:var(--on-dark-muted)}
 .diag-done{margin-top:auto;display:flex;align-items:center;gap:8px;justify-content:center;background:rgba(18,165,160,.16);border:1px solid rgba(18,165,160,.3);border-radius:12px;padding:9px;font-size:.78rem;font-weight:700;color:#7ff0ea;opacity:0;animation:diagDone 9s var(--ease) infinite}
 .diag-done svg{width:15px;height:15px}
-.phone-scan{position:absolute;left:0;right:0;height:60px;background:linear-gradient(180deg,transparent,rgba(149,14,207,.18),transparent);top:-60px;animation:scan 3.6s linear infinite;pointer-events:none}
+/* Сканер теперь использует will-change и аппаратное ускорение */
+.phone-scan{position:absolute;left:0;right:0;height:60px;background:linear-gradient(180deg,transparent,rgba(149,14,207,.18),transparent);top:-60px;animation:scan 3.6s linear infinite;pointer-events:none;will-change:transform}
 
 .chip{position:absolute;display:flex;align-items:center;gap:8px;background:#fff;color:var(--ink-900);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow-lg);font-weight:700;font-size:.86rem;z-index:6;animation:bob 5s ease-in-out infinite}
 .chip svg{width:18px;height:18px;flex:none}
@@ -443,7 +445,7 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ============ CONTACTS ============ */
 .contacts{background:var(--ink-900);color:#fff;position:relative;overflow:hidden}
-.contacts::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 400px at 12% 10%,rgba(149,14,207,.16),transparent 60%),radial-gradient(600px 400px at 90% 90%,rgba(18,165,160,.12),transparent 60%)}
+.contacts::before{content:"absolute";position:absolute;inset:0;background:radial-gradient(600px 400px at 12% 10%,rgba(149,14,207,.16),transparent 60%),radial-gradient(600px 400px at 90% 90%,rgba(18,165,160,.12),transparent 60%)}
 .contacts .container{position:relative;z-index:2}
 .contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
 .form-card{background:#fff;color:var(--ink-900);border-radius:26px;padding:36px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
@@ -543,7 +545,8 @@ ul{margin:0;padding:0;list-style:none}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @keyframes wheel{0%{transform:translate(-50%,0);opacity:1}100%{transform:translate(-50%,12px);opacity:0}}
 @keyframes dash{to{stroke-dashoffset:-280}}
-@keyframes scan{0%{top:-60px}100%{top:100%}}
+/* Обновлённый скейл сканера */
+@keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(650px)}}
 @keyframes diagFill{0%{transform:scaleX(0)}62%{transform:scaleX(1)}88%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
 @keyframes diagItem{0%{opacity:0;transform:translateY(10px)}6%{opacity:1;transform:none}84%{opacity:1}92%,100%{opacity:0}}
 @keyframes diagCheck{0%{transform:scale(0)}5%{transform:scale(1.35)}8%{transform:scale(1)}84%{transform:scale(1)}92%,100%{transform:scale(0)}}
@@ -569,10 +572,6 @@ ul{margin:0;padding:0;list-style:none}
   .header .container{gap:12px}
   .hero .container{grid-template-columns:1fr;gap:60px}
   .hero-stage{order:-1;min-height:480px}
-   body{overflow-x:clip}
-  .chip.c1{left:0}.chip.c2{right:0}.chip.c3{left:0}
-  .hero-cta{flex-direction:column;align-items:stretch}
-  .hero-cta .btn{width:100%;flex:0 0 auto}
   .services-grid{grid-template-columns:repeat(2,1fr)}
   .svc.feature{grid-column:span 2;grid-row:span 1}
   .why-grid,.faq-grid,.contacts-grid,.reviews-top{grid-template-columns:1fr;gap:36px}
@@ -610,6 +609,9 @@ ul{margin:0;padding:0;list-style:none}
   .why-badge{position:absolute;top:auto;left:10px;bottom:12px;display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:14px;max-width:54%}
   .why-badge .wb-num{font-size:1.35rem}
   .why-badge small{font-size:.7rem;max-width:9ch;line-height:1.15}
+  
+  /* Отключение тяжёлой анимации на фоне для мобильных устройств */
+  .hero-circuit path { animation: none !important; }
 }
 @media (max-width:420px){
   .container{padding:0 18px}
@@ -617,6 +619,9 @@ ul{margin:0;padding:0;list-style:none}
   .stats-card{grid-template-columns:1fr}
   .stat+.stat::before{display:none!important}
 }
+
+/* Пауза анимаций, если экран не в поле зрения */
+.paused-anim * { animation-play-state: paused !important; }
 
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
@@ -825,7 +830,7 @@ html{background:#0B1526;overflow-x:clip}
         <div>
           <span class="feat-cta">Записаться на замену
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-         </span>
+          </span>
           <div class="svc-foot">
             <span class="svc-price">от <b>45</b> руб</span>
             <span class="svc-time">≈ 40 мин при вас</span>
@@ -1389,6 +1394,21 @@ html{background:#0B1526;overflow-x:clip}
 (function(){
   "use strict";
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- hero animations pause on scroll out ---------- */
+  var heroSec = document.querySelector('.hero');
+  if(heroSec && 'IntersectionObserver' in window && !reduce){
+    var heroIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          heroSec.classList.remove('paused-anim');
+        } else {
+          heroSec.classList.add('paused-anim');
+        }
+      });
+    }, {threshold: 0.01});
+    heroIo.observe(heroSec);
+  }
 
   /* ---------- header scroll + progress + backtop ---------- */
   var header = document.getElementById('header');
