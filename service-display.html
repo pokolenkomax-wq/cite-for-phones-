@@ -3,7 +3,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0B1526">
 <meta name="description" content="Замена дисплея смартфона в Барановичах — ФиксЛаб. Установка нового экрана целиком при полосах, пятнах и отсутствии изображения. Гарантия до 12 месяцев.">
 <title>Замена дисплея · ФиксЛаб — ремонт смартфонов в Барановичах</title>
@@ -31,7 +31,7 @@
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;font-family:var(--font-body);color:var(--text);background:var(--paper);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;font-family:var(--font-body);color:var(--text);background:var(--paper);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
 a{color:inherit;text-decoration:none}
 h1,h2,h3{margin:0;font-family:var(--font-display);line-height:1.08;letter-spacing:-.01em}
 p{margin:0}
@@ -53,7 +53,7 @@ img,svg{display:block}
 .btn-ghost:hover{background:rgba(255,255,255,.08)}
 
 /* topbar */
-.topbar{position:sticky;top:0;z-index:50;background:rgba(8,14,26,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--on-dark-line)}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(8,14,26,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--on-dark-line);padding-top:env(safe-area-inset-top)}
 .topbar .wrap{display:flex;align-items:center;gap:16px;height:66px}
 .brand{display:flex;align-items:center;gap:11px;color:#fff;flex:none}
 .brand-mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(145deg,var(--violet-500),var(--violet-600));display:grid;place-items:center;box-shadow:0 8px 20px -8px rgba(149,14,207,.8)}
@@ -137,7 +137,7 @@ img,svg{display:block}
 .cta-phone a{font-family:var(--font-display);font-weight:800;font-size:1.5rem;color:#fff}
 
 /* footer */
-.footer{background:var(--ink-950);color:var(--on-dark-muted);padding:40px 0}
+.footer{background:var(--ink-950);color:var(--on-dark-muted);padding:40px 0 calc(40px + env(safe-area-inset-bottom))}
 .footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.86rem}
 .footer .brand-name{color:#fff}
 .footer a:hover{color:var(--violet-400)}
